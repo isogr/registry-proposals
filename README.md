@@ -1,3 +1,1 @@
-# ISO/TC 211 Geodetic Registry
-
-The data repository of the next iteration of GR.
+# ISO/TC 211 Geodetic Registry (Proposals edition)
