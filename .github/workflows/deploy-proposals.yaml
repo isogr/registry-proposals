@@ -29,7 +29,6 @@ jobs:
           repository: 'isogr/registry'
           fetch-depth: 1
           ref: master
-          token: ${{ secrets.PAT_JEFFREYLAU }}
       - name: Build
         run: |
           npx @paneron/site-builder@0.0.42 --outdir dist --datadir gr-registry
