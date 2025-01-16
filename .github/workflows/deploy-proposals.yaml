@@ -31,7 +31,24 @@ jobs:
           ref: master
       - name: Build
         run: |
-          npx @paneron/site-builder@0.0.43 --forusername maccraymer --outdir dist --datadir gr-registry
+          if [[ -d gr-registry/_web ]]
+          then
+            echo "{\"gaMeasurementId\":\"${GA_MEASUREMENT_ID}\"}" > gr-registry/_web/resources/js/ga.json
+            npx @paneron/site-builder@0.0.44 \
+              --forusername maccraymer \
+              --outdir dist \
+              --datadir gr-registry \
+              -i gr-registry/_web/ga.js \
+              --injected-assets-dir gr-registry/_web/resources
+          else
+            echo >&2 "Fallback to older version (0.0.43) of site-builder"
+            npx @paneron/site-builder@0.0.43 \
+              --forusername maccraymer \
+              --outdir dist \
+              --datadir gr-registry
+          fi
+        env:
+          GA_MEASUREMENT_ID: ${{ vars.GA_MEASUREMENT_ID }}
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
